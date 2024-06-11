@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<head>
+    <title>Segment Intersection Example</title>
+    <style>
+        body{
+            margin: 0;
+            overflow: hidden;
+        }
+        #myCanvas{
+            background-color: rgb(206, 206, 206);
+        }
+    </style>
+</head>
+<body>
+    <canvas id="myCanvas"> </canvas>
+    <script>
+        myCanvas.width = window.innerWidth;
+        myCanvas.height = window.innerHeight;
+
+        const A = {x:200,y:150};
+        const B = {x:150,y:250};
+        const C = {x:50,y:100};
+        const D = {x:(0.9*myCanvas.width),y:(0.8*myCanvas.height)};
+
+        const ctx = myCanvas.getContext("2d");
+
+        let angle = 0;
+        const mouse = {x:0,y:0};
+        document.onmousemove = (event) =>{
+            mouse.x = event.x;
+            mouse.y = event.y;
+        }
+        animate();
+        function animate(){
+            const radius= Math.min(0.3*myCanvas.width,0.3*myCanvas.height,200);
+            A.x=mouse.x+Math.cos(angle)*radius;
+            A.y=mouse.y+Math.sin(angle)*radius;
+            B.x=mouse.x-Math.cos(angle)*radius;
+            B.y=mouse.y-Math.sin(angle)*radius;
+
+            angle+=0.02;
+
+            ctx.clearRect(0,0,myCanvas.width,myCanvas.height);
+            ctx.beginPath();
+            ctx.moveTo(A.x,A.y);
+            ctx.lineTo(B.x,B.y);
+            ctx.moveTo(C.x,C.y);
+            ctx.lineTo(D.x,D.y);
+            ctx.stroke();
+
+            drawEndpoint(A,"A");
+            drawEndpoint(B,"B");
+            drawEndpoint(C,"C");
+            drawEndpoint(D,"D");
+
+            const I = getIntersection(A,B,C,D);
+            if(I){
+                drawEndpoint(I,"I" , "blue");
+            }
+            requestAnimationFrame(animate);
+        }
+
+        function drawEndpoint(point, label ,color='white'){
+            ctx.beginPath();
+            ctx.fillStyle = color;
+            ctx.arc(point.x,point.y,10,0,Math.PI*2);
+            ctx.fill();
+            ctx.stroke();
+            ctx.fillStyle = "black";
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle'
+            ctx.font="bold 14px Arial";
+            ctx.fillText(label,point.x,point.y);
+        }
+            
+
+
+        function getIntersection(A,B,C,D){
+            let ttop = (D.x - C.x)*(A.y - C.y) -  (D.y - C.y)*(A.x - C.x);
+            let tbottom = (D.y - C.y)*( B.x - A.x)  -  (D.x - C.x)*(B.y - A.y);
+
+            let utop = (C.y - A.y)*(B.x - A.x) - (B.y - A.y)*(C.x - A.x);
+            let ubottom = (D.x - C.x)*(B.y - A.y) - (B.x - A.x)*(D.y - C.y);
+
+            if (tbottom!=0 && ubottom!=0){
+                let t = ttop/tbottom;
+                let u = utop/ubottom
+                if(t>=0 && t<=1 && u>=0 && u<=1){
+                    return {
+                        x: lerp(A.x,B.x,t),
+                        y: lerp(A.y,B.y,t),
+                        offset:t
+                    }}
+            }
+            return null;
+        }
+
+        function lerp(A,B,t){
+            return A + (B-A)*t;
+        }
+    </script>
+</body>
+</html>
