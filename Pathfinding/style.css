@@ -1,0 +1,68 @@
+
+* {
+    /* box-sizing: border-box; */
+    color: white;
+    font-family:'system-ui';
+    font-weight: 500;
+    font-size: 20px;
+}
+button{
+    background-color: #BCFD4C;
+    color: black;
+    border: 0;
+    border-radius: 5px;
+    width : 150px;
+    height: 70px;
+}
+
+html{
+    box-sizing: border-box;
+    margin: 0px;
+    padding: 0px;
+    height: 98vh;
+}
+body{
+    background:#6E6E6E;
+    height: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content:space-evenly;
+    align-items: center;
+
+}
+#gridCanvas{
+    border-radius: 10px;
+    border: 1px solid black;
+}
+#buttonBox{
+    background-color: rgba(0, 0, 255, 0);
+    border: 1px solid white;
+    border-radius: 40px;
+    min-width: 200px;
+    width: 300px;
+    height: 500px;
+
+    display: flex;
+    align-items: center;
+    justify-content:space-evenly;
+    flex-direction: column;
+
+}
+#canvasdiv{
+    width: 500px;
+    height: 500px;
+}
+.inputLabels{
+    width :200px
+}
+.inputs{
+    width: 50px;
+    color: black;
+    text-align: center;
+}
+#controlLabel{
+    text-align: center;
+    font-size: 30px;
+    color: white;
+    font-weight: 900;
+}

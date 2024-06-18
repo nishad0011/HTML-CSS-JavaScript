@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Pathfinding</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <div id="canvasdiv">
+            <canvas id="gridCanvas"></canvas>
+        </div>
+        <div >
+            <div id="buttonBox">
+                <div id="controlLabel">CONTROLS</div> 
+                <button id="startButton">Start</button>
+                <button id="resetButton" onclick="reset()">Reset</button>
+                <button id="clearBlocksBtn">Clear Blocks</button>
+                <div>
+                    <input type="checkbox" id="drawBlocksCheckbox" name="drawBlocksCheckbox" value="drawBlocks">
+                    <label for="drawBlocksCheckbox">Draw Blocks</label>
+                </div>
+                <div>
+                    <label class="inputLabels" for="colCount">Column Count : </label>
+                    <input class="inputs" id="colCount" type="number" onchange="updateRowCol()">
+                </div>
+                <div>
+                    <label class="inputLabels" for="rowCount">Row Count : </label>
+                    <input class="inputs" id="rowCount" type="number" onchange="updateRowCol()">
+                </div>
+            </div> 
+            
+        </div>
+        <script src="grid.js"></script>
+        <script src="functions.js"></script>
+        <script src="PF.js"></script>
+    </body>
+</html>
